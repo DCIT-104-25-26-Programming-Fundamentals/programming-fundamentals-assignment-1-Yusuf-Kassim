@@ -79,3 +79,64 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def add_task(tasks):
+    """Adds a new task to the ledger."""
+    task = input("Enter task: ")
+    tasks.append(task)
+    print(f'Task added: "{task}"\n')
+
+def view_tasks(tasks):
+    """Displays the current state of the ledger."""
+    print("Your Tasks:")
+    if not tasks:
+        print("No tasks yet. Add one!\n")
+        return
+    for i, task in enumerate(tasks, 1):
+        print(f"{i}. {task}")
+    print()
+
+def delete_task(tasks):
+    """Removes a task by index. Handles out-of-bounds and invalid inputs."""
+    if not tasks:
+        print("No tasks to delete.\n")
+        return
+        
+    view_tasks(tasks)
+    try:
+        choice = int(input("Enter task number to delete: "))
+        if 1 <= choice <= len(tasks):
+            removed = tasks.pop(choice - 1)
+            print(f'Task "{removed}" has been removed.\n')
+        else:
+            print("Error: Invalid task number.\n")
+    except ValueError:
+        print("Error: Please enter a valid number.\n")
+
+def main():
+    """The main execution loop. Runs until terminated."""
+    tasks = []
+    while True:
+        print("============================")
+        print("     TO-DO LIST MENU")
+        print("============================")
+        print("1. Add task")
+        print("2. View tasks")
+        print("3. Delete task")
+        print("4. Quit")
+        
+        choice = input("Enter your choice (1-4): ")
+        
+        if choice == '1':
+            add_task(tasks)
+        elif choice == '2':
+            view_tasks(tasks)
+        elif choice == '3':
+            delete_task(tasks)
+        elif choice == '4':
+            print("Goodbye!")
+            break
+        else:
+            print("Error: Invalid choice. Please enter 1-4.\n")
+
+if __name__ == "__main__":
+    main()
